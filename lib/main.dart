@@ -1,4 +1,4 @@
-import 'package:Project_App/Setup/signin.dart';
+import 'package:Project_App/Pages/Setup/welcome.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(Project_App());
@@ -8,7 +8,10 @@ class Project_App extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Project_App',
-      home: LoginPage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: welcomePage(),
     );
   }
 }

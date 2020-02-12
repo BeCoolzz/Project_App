@@ -1,5 +1,7 @@
 import 'package:Project_App/Pages/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,8 +9,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String _username, _password;
-  int flag;
+  String _email, _password;
+  
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,15 @@ class _LoginPageState extends State<LoginPage> {
             TextFormField(
               validator: (input) {
                 if(input.isEmpty){
-                  return 'Please type Username';
+                  return 'Please type Email';
                 }
               },
-              onSaved: (input) => _username = input,
+              onSaved: (input) => _email = input,
               decoration: InputDecoration(
-                labelText: 'Username'
+                labelText: 'Email'
               ),
             ),
+            
             TextFormField(
               validator: (input) {
                 if(input.length < 6){
@@ -43,13 +46,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               obscureText: true,
             ),
+            
             RaisedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                  );
-                },
-                child: Text('Sign In'),
+              onPressed: signIn,
+              child: Text('Sign In'),
             )
           ]
         )
@@ -57,15 +57,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void signIn(){
+Future<void>  signIn() async{
+    //TO DO validate fields
     final formState = _formkey.currentState;
     if(formState.validate()){
-      if(_username=='Username') {
-        flag=flag+1;
+      //TO DO login to firebase
+      formState.save();
+      try {
+        AuthResult user = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        //TO DO Navigate to home
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user: user)));
+      } catch (e) {
+        print(e.message);
       }
-      if(_password=='Password') {
-        flag=flag+1;
-      }
+           
     }
 
   }
