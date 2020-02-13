@@ -20,7 +20,13 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth: ^0.15.4
+  
+  #Sqflite is dart adapter extension for managing device SQLITE database
   sqflite: ^1.2.0
+
+  #Path_Provider is an extension that help facilitate the common device storage path,...
+  # ...in our case will be used in conjunction with Sqflite to store database on device.
+  path_provider: ^1.6.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
