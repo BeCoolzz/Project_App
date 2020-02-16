@@ -66,7 +66,7 @@ Future<void>  signIn() async{
       try {
         AuthResult user = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
         //TO DO Navigate to home
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user: user)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(/*user: user*/)));
       } catch (e) {
         print(e.message);
       }
